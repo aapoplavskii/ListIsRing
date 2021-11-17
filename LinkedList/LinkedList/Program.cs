@@ -8,8 +8,6 @@ namespace LinkedList
         static List<Node> nodesnext = new List<Node>();
         static void Main(string[] args)
         {
-            var finish = false;
-
             var first = new Node(7);
 
             var second = new Node(3);
@@ -20,44 +18,30 @@ namespace LinkedList
 
             var fourth = new Node(8);
             third.Next = fourth;
-            fourth.Next = second;
+            fourth.Next = first;
 
-            if (IsRing(first))
-            {
-                Console.WriteLine($"У нас кольцо на элементе - {first.Value}");
-                finish = true;
-            }
+            var tmp = first;
 
-            if (!finish)
+            while (true)
             {
-                if (IsRing(second))
+                if (IsRing(tmp))
                 {
-                    Console.WriteLine($"У нас кольцо на элементе - {second.Value}");
-                    finish = true;
+                    Console.WriteLine($"У нас кольцо на элементе - {tmp.Value}");
+                    break;
                 }
-            }
 
-            if (!finish)
-            {
-                if (IsRing(third))
+                if (tmp.Next != null)
                 {
-                    Console.WriteLine($"У нас кольцо на элементе - {third.Value}");
-                    finish = true;
+                    tmp = tmp.Next;
                 }
-            }
-
-            if (!finish)
-            {
-                if (IsRing(fourth))
+                else
                 {
-                    Console.WriteLine($"У нас кольцо на элементе - {fourth.Value}");
-                    finish = true;
+                    Console.WriteLine("Наш связный список без кольца!");
+                    break;
                 }
+
             }
-
-            if (!finish)
-                Console.WriteLine("Наш связный список без кольца!");
-
+        
             Console.ReadKey();
         }
 
