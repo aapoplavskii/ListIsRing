@@ -20,27 +20,7 @@ namespace LinkedList
             third.Next = fourth;
             fourth.Next = first;
 
-            var tmp = first;
-
-            while (true)
-            {
-                if (IsRing(tmp))
-                {
-                    Console.WriteLine($"У нас кольцо на элементе - {tmp.Value}");
-                    break;
-                }
-
-                if (tmp.Next != null)
-                {
-                    tmp = tmp.Next;
-                }
-                else
-                {
-                    Console.WriteLine("Наш связный список без кольца!");
-                    break;
-                }
-
-            }
+            FindRing(first);
         
             Console.ReadKey();
         }
@@ -53,6 +33,26 @@ namespace LinkedList
                 return true;
             else
                 return false;
+
+        }
+
+        public static void FindRing(Node node)
+        {
+            if (IsRing(node))
+            {
+                Console.WriteLine($"У нас кольцо на элементе - {node.Value}");
+            }
+            else
+            {
+                if (node.Next != null)
+                {
+                    FindRing(node.Next);
+                }
+                else
+                {
+                    Console.WriteLine("Наш связный список без кольца!");
+                }
+            }
 
         }
     }
